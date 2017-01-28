@@ -5,6 +5,8 @@
  */
 package hashcode2017;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author pcheape
@@ -73,6 +75,8 @@ public class Pizza {
         int currentCol = 0 ;
         boolean valid = false;
         int startCol = 0;
+        ArrayList slices = new ArrayList();
+        int totalSlices = 0 ; 
         
         
         for(int j = 0 ;j  < columns; j++){
@@ -95,10 +99,12 @@ public class Pizza {
              }
              
              if(valid){
-                System.out.println(j+""+ startCol +""+startCol+""+ i); 
+  
+                slices.add(j+""+startCol +""+startCol+""+ i);
                 tomatoCount = 0;
                 mushroomCount = 0;
                 valid = false;  
+                totalSlices ++;
              }
              if(currentCount == maxSlice){
                  currentCount = 0; 
@@ -116,6 +122,7 @@ public class Pizza {
             valid = false;        
          
     }
-        
+        Fileout.printOut(slices, totalSlices);
     }
+    
 }
