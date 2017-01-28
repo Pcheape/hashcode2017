@@ -100,7 +100,7 @@ public class Pizza {
              
              if(valid){
   
-                slices.add(j+""+startCol +""+startCol+""+ i);
+                slices.add(j+" "+startCol +" "+startCol+" "+ i);
                 tomatoCount = 0;
                 mushroomCount = 0;
                 valid = false;  
