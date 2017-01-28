@@ -85,22 +85,32 @@ public class Pizza {
                 if(pizzaArray[i][j]=='M'){
                     mushroomCount++;
                 }
-                if((mushroomCount == ingredients)&&(tomatoCount == ingredients)){
+                
+                
+                if((mushroomCount >= ingredients) && (tomatoCount >= ingredients)){
                     valid = true;
                 }
                 
-                if(currentCount >= maxSlice){
-                    currentCount = 0;
-                    currentCol = j;
-                }
+                
+                
                 if(valid){
                     totalSlices++;
                     slices.add(currentCol +" " +j+" "+i+" "+j);
                     valid = false;
-                    currentCol = j;
+                    currentCol = i+1;
+                    mushroomCount = 0;
+                    tomatoCount = 0;
+                }
+                currentCount++;
+                if(currentCount >= maxSlice){
+                    currentCount = 0;
+                    currentCol = i+1;
+                    valid = false;
+                    mushroomCount = 0;
+                    tomatoCount = 0;
                 }
                         
-                currentCount++;
+                
             }
             
             currentCount = 0;
