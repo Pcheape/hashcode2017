@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author pcheape
  */
 public class Pizza {
+
     int rows;
     int columns;
     int ingredients;
@@ -19,19 +20,18 @@ public class Pizza {
     int curRow;
     int curCol;
     char[][] pizzaArray;
-  
-    public Pizza(int rowsin,int columns,int ingredients,int maxSlice){
-        
-        rows = rowsin;
-       
-        
+
+    public Pizza(int rows, int columns, int ingredients, int maxSlice) {
+
+        this.rows = rows;
+
         this.columns = columns;
         this.ingredients = ingredients;
         this.maxSlice = maxSlice;
-        curRow =0;
-        curCol =0;
+        curRow = 0;
+        curCol = 0;
         pizzaArray = new char[rows][columns];
-        
+
     }
 
     public int getRows() {
@@ -54,75 +54,65 @@ public class Pizza {
         return pizzaArray;
     }
 
-    
-    public void addIng(char ing){
-        
-        pizzaArray[curRow][curCol] = ing; 
-        if(rows == curRow+1){
-            curRow = 0 ; 
-            curCol ++;
-        }else{
+    public void addIng(char ing) {
+
+        pizzaArray[curRow][curCol] = ing;
+        if (columns == curCol + 1) {
+            curCol = 0;
             curRow++;
+        } else {
+            curCol++;
         }
     }
-    
-    public void slicePizza(){
-        boolean mushroom = false;
-        boolean tomato  = false ; 
+
+    public void slicePizza() {
+       
         int tomatoCount = 0;
         int mushroomCount = 0;
         int currentCount = 0;
-        int currentCol = 0 ;
+        int currentCol = 0;
+     
         boolean valid = false;
-        int startCol = 0;
+
         ArrayList slices = new ArrayList();
-        int totalSlices = 0 ; 
-        
-        
-        for(int j = 0 ;j  < columns; j++){
-        startCol = j;
-        
-        for(int i = 0 ; i < rows;i++){
-            
-            if(pizzaArray[currentCol][i] == 'T'){
-                tomatoCount ++;
-            }
-             if(pizzaArray[currentCol][i] == 'M'){
-                mushroomCount ++;
-            }
-             
-             
-             currentCount ++;
-             
-             if((tomatoCount >= ingredients)&&(mushroomCount >= ingredients)){
-                 valid = true;
-             }
-             
-             if(valid){
-  
-                slices.add(j+" "+startCol +" "+startCol+" "+ i);
-                tomatoCount = 0;
-                mushroomCount = 0;
-                valid = false;  
-                totalSlices ++;
-             }
-             if(currentCount == maxSlice){
-                 currentCount = 0; 
-                 tomatoCount = 0;
-                 mushroomCount = 0;
-                 currentCol = i ; 
+        int totalSlices = 0;
+
+        for(int j = 0; j < pizzaArray[0].length;j++){
+            for(int i = 0 ; i < pizzaArray.length;i++){
+                if(pizzaArray[i][j] == 'T'){
+                    tomatoCount++;
+                }
+                if(pizzaArray[i][j]=='M'){
+                    mushroomCount++;
+                }
+                if((mushroomCount == ingredients)&&(tomatoCount == ingredients)){
+                    valid = true;
+                }
                 
-                 
-             }
+                if(currentCount >= maxSlice){
+                    currentCount = 0;
+                    currentCol = j;
+                }
+                if(valid){
+                    totalSlices++;
+                    slices.add(currentCol +" " +j+" "+i+" "+j);
+                    valid = false;
+                    currentCol = j;
+                }
+                        
+                currentCount++;
+            }
+            
+            currentCount = 0;
+            mushroomCount = 0 ; 
+            tomatoCount = 0 ;
+            valid = false;
+            currentCol =0;
+           
             
         }
         
-            tomatoCount = 0;
-            mushroomCount = 0;
-            valid = false;        
-         
-    }
         Fileout.printOut(slices, totalSlices);
     }
-    
+
 }
